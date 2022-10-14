@@ -62,6 +62,13 @@ function addTask() {
   );
 
  // TODO: empty the inputs after
+ for (let index = 0; index < articleFormElements.length; index++) {
+  const input = articleFormElements[index]
+  if(['INPUT', 'TEXTAREA'].includes(input.nodeName)) {
+    input.value = ''
+  }
+ }
+ form.classList.remove("was-validated");
 }
 
 // TODO: add cleanup submit receipt
