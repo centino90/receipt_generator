@@ -77,7 +77,120 @@
   </head>
   <body>
     <div id="before_print">
-        <button id="print">PRINT</button>
+      <button id="print">PRINT</button>
+
+      <div class="container">
+        <!-- TODO: add items input -->
+        <form class="needs-validation" novalidate>
+          <fieldset>
+            <legend>Form Input</legend>
+
+            <div class="row g-3">
+              <div class="col-12">
+                <div class="row g-3">
+                  <div class="col-6">
+                    <div class="form-floating">
+                      <textarea
+                        class="form-control h-100"
+                        name="article"
+                        required
+                      ></textarea>
+                      <label>Articles</label>
+                      <div class="invalid-feedback">
+                        Please fill this up
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="row g-3">
+                      <div class="col-6">
+                        <div class="form-floating">
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="quantity"
+                            required
+                          />
+                          <label>Quantity</label>
+                          <div class="invalid-feedback">
+                            Please fill this up
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="form-floating">
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="unit_price"
+                            required
+                          />
+                          <label>Unit Price</label>
+                          <div class="invalid-feedback">
+                            Please fill this up
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" name="unit" required/>
+                          <label>Unit</label>
+                          <div class="invalid-feedback">
+                            Please fill this up
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="form-floating">
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="amount"
+                            required
+                          />
+                          <label>Amount</label>
+                          <div class="invalid-feedback">
+                            Please fill this up
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-5">
+              <div class="d-flex">
+                <button type="button" class="btn btn-primary" id="add_more">
+                  Add article
+                </button>
+                <button type="button" class="btn btn-success ms-auto">
+                  Print Receipt
+                </button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+
+        <table class="table table-bordered mt-5">
+          <thead class="text-center">
+            <tr>
+              <th>QTY</th>
+              <th>UNIT</th>
+              <th>ARTICLES</th>
+              <th>UNIT PRICE</th>
+              <th>AMOUNT</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="text-center" id="article_row_group">
+            <!-- TODO: CREATE TEMPLATING FOR DYNAMIC ROWS -->
+          </tbody>
+        </table>
+
+        <!-- TODO: add misc. inputs -->
+      </div>
     </div>
 
     <div id="print_canvas">
@@ -202,6 +315,17 @@
     ></script>
 
     <script>
+        // TODO: change it to delegation
+      const tooltipTriggerList = document.querySelectorAll(
+        '[data-bs-toggle="tooltip"]'
+      );
+      const tooltipList = [...tooltipTriggerList].map(
+        (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+      );
+      
+    </script>
+
+    <script>
       const printBtn = document.querySelector("#print");
       const printCanvas = document.querySelector("#print_canvas");
 
@@ -222,5 +346,7 @@
         printCanvas.innerHTML = "";
       }
     </script>
+
+    <script src="./scripts/index.js"></script>
   </body>
 </html>
