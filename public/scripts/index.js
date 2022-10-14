@@ -1,5 +1,5 @@
 // On app load, get all tasks from localStorage
-window.onload = loadTasks;
+window.onload = loadArticles;
 
 // On form submit add task
 document.querySelector("#add_more").addEventListener("click", (e) => {
@@ -7,26 +7,26 @@ document.querySelector("#add_more").addEventListener("click", (e) => {
   addTask();
 });
 
-function loadTasks() {
-  // check if localStorage has any tasks
+function loadArticles() {
+  // check if localStorage has any articles
   // if not then return
-  if (localStorage.getItem("tasks") == null) return;
+  if (localStorage.getItem("articles") == null) return;
 
-  // Get the tasks from localStorage and convert it to an array
-  let tasks = Array.from(JSON.parse(localStorage.getItem("tasks")));
+  // Get the articles from localStorage and convert it to an array
+  let articles = Array.from(JSON.parse(localStorage.getItem("articles")));
 
-  // Loop through the tasks and add them to the list
-  tasks.forEach((task) => {
-    const list = document.querySelector("ul");
-    const li = document.createElement("li");
-    li.innerHTML = `<input type="checkbox" onclick="taskComplete(this)" class="check" ${
-      task.completed ? "checked" : ""
-    }>
-          <input type="text" value="${task.task}" class="task ${
-      task.completed ? "completed" : ""
-    }" onfocus="getCurrentTask(this)" onblur="editTask(this)">
-          <i class="fa fa-trash" onclick="removeTask(this)"></i>`;
-    list.insertBefore(li, list.children[0]);
+  // Loop through the articles and add them to the row
+  articles.forEach((task) => {
+    if(task.completed) {
+      return
+    }
+    console.log('tes')
+
+    const articleRow = articleRowHtml(task);
+    const articleRowGroup = document.querySelector("#article_row_group");
+    const tr = document.createElement("tr");
+    tr.innerHTML = articleRow;
+    articleRowGroup.insertBefore(tr, articleRowGroup.children[0])
   });
 }
 
@@ -61,7 +61,6 @@ function addTask() {
     ])
   );
 
- // TODO: empty the inputs after
  for (let index = 0; index < articleFormElements.length; index++) {
   const input = articleFormElements[index]
   if(['INPUT', 'TEXTAREA'].includes(input.nodeName)) {
