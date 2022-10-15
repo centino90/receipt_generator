@@ -1,11 +1,36 @@
+const printBtn = document.querySelector("#print");
+const printCanvas = document.querySelector("#print_canvas");
+
 // On app load, get all tasks from localStorage
 window.onload = loadArticles;
+window.onbeforeprint = beforePrint;
+window.onafterprint = afterPrint;
+
+printBtn.addEventListener("click", () => {
+  // const f = fetch("./print.html");
+  // f.then((r) => r.text()).then(console.log);
+  submitReceipt()
+  window.print();
+});
+
+function beforePrint() {
+  // printCanvas.innerHTML = "some content";
+}
+
+function afterPrint(e) {
+  // printCanvas.innerHTML = "";
+  document.querySelectorAll("#print_rows tr.added").forEach(tr => {
+    tr.remove()
+  })
+  
+}
 
 // On form submit add task
 document.querySelector("#add_more").addEventListener("click", (e) => {
   console.log("qweqwe");
   addTask();
 });
+
 
 function loadArticles() {
   // check if localStorage has any articles
@@ -20,7 +45,6 @@ function loadArticles() {
     if(task.completed) {
       return
     }
-    console.log('tes')
 
     const articleRow = articleRowHtml(task);
     const articleRowGroup = document.querySelector("#article_row_group");
@@ -71,7 +95,27 @@ function addTask() {
 }
 
 // TODO: add cleanup submit receipt
-function submitReceipt() {}
+function submitReceipt() {
+  const trs = document.querySelectorAll("#article_row_group tr")
+
+  trs.forEach(tr => {
+    const s  = document.createElement('tr')
+    s.classList.add('added')
+    s.innerHTML = tr.innerHTML
+
+    document.querySelector("#print_rows").insertBefore(
+      s,
+      document.querySelector("#print_rows").children[0]
+    )
+  })
+
+  const ptrs = document.querySelectorAll('#print_table tbody tr')
+  ptrs.forEach(tr => {
+    if(tr.querySelector('button')) {
+      tr.querySelector('button').closest('td').remove()
+    }
+  })
+}
 
 function taskComplete(event) {
   let tasks = Array.from(JSON.parse(localStorage.getItem("tasks")));

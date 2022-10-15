@@ -81,7 +81,7 @@
         <!-- TODO: add items input -->
         <form class="needs-validation" novalidate>
           <fieldset>
-            <legend>Form Input</legend>
+            <legend class="text-center mt-4 mb-5">RECEIPT GENERATOR</legend>
 
             <div class="row g-3">
               <div class="col-12">
@@ -221,7 +221,7 @@
           </section>
 
           <section>
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="print_table">
               <thead class="text-center">
                 <tr>
                   <th>QTY</th>
@@ -231,7 +231,7 @@
                   <th>AMOUNT</th>
                 </tr>
               </thead>
-              <tbody class="text-center">
+              <tbody class="text-center" id="print_rows">
                 <!-- TODO: CREATE TEMPLATING FOR DYNAMIC ROWS -->
                 <tr>
                   <td>1</td>
@@ -321,28 +321,6 @@
         (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
       );
       
-    </script>
-
-    <script>
-      const printBtn = document.querySelector("#print");
-      const printCanvas = document.querySelector("#print_canvas");
-
-      window.onbeforeprint = beforePrint;
-      window.onafterprint = afterPrint;
-
-      printBtn.addEventListener("click", () => {
-        // const f = fetch("./print.html");
-        // f.then((r) => r.text()).then(console.log);
-        window.print();
-      });
-
-      function beforePrint() {
-        // printCanvas.innerHTML = "some content";
-      }
-
-      function afterPrint() {
-        printCanvas.innerHTML = "";
-      }
     </script>
 
     <script src="./scripts/index.js"></script>
